@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>M.A.K Booking — حجز خدمات التصميم والمواقع والكتابة</title>
+  <meta name="description" content="M.A.K Booking: احجز خدمات التصميم والبرمجة والكتابة، واستلم عرض السعر والعقد وتابع طلبك ومحادثاتك في مكان واحد. Book design, web and writing services with M.A.K.">
+  <meta name="keywords" content="M.A.K, تصميم, شعارات, مواقع, كتابة, ترجمة, حجز, design, web, writing, booking">
+  <meta name="author" content="M.A.K">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- لون شريط المتصفح -->
+  <meta name="theme-color" content="#0B3B3A">
+  <meta name="color-scheme" content="dark light">
+  <meta name="msapplication-TileColor" content="#0B3B3A">
+
+  <!-- iOS / macOS (PWA: أضف للشاشة الرئيسية) -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="M.A.K Booking">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Open Graph / تويتر (معاينة الرابط) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="M.A.K Booking">
+  <meta property="og:title" content="M.A.K Booking">
+  <meta property="og:description" content="حجز خدمات التصميم والمواقع والكتابة مع M.A.K">
+  <meta property="og:image" content="icons/Icon-512.png">
+  <meta property="og:locale" content="ar_MA">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="M.A.K Booking">
+  <meta name="twitter:description" content="حجز خدمات التصميم والمواقع والكتابة مع M.A.K">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    html, body { margin: 0; height: 100%; background: #0B3B3A; }
+    #boot { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 18px; color: #FFCCBF; font-family: system-ui, sans-serif; }
+    #boot .logo { font-size: 34px; font-weight: 900; letter-spacing: 2px; }
+    #boot .bar { width: 120px; height: 3px; background: rgba(255,204,191,.25); border-radius: 3px; overflow: hidden; }
+    #boot .bar::after { content: ''; display: block; width: 40%; height: 100%; background: #FFCCBF; animation: mv 1.1s infinite ease-in-out; }
+    @keyframes mv { 0% { margin-inline-start: -40%; } 100% { margin-inline-start: 100%; } }
+  </style>
+</head>
+<body>
+  <div id="boot"><div class="logo">M.A.K</div><div class="bar"></div></div>
+  <script>
+    // يزيل شاشة التحميل عندما يبدأ Flutter بالرسم
+    window.addEventListener('flutter-first-frame', function () {
+      var b = document.getElementById('boot');
+      if (b) b.remove();
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
