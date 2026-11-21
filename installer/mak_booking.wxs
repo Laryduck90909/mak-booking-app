@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WiX 3 — مثبّت MSI. الملفات تُجمع تلقائياً بـ heat في files.wxs -->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="M.A.K Booking" Language="1033" Version="$(var.ProductVersion)"
+           Manufacturer="M.A.K" UpgradeCode="EE2D5463-BE1B-4914-BBBB-22C684DAB524">
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of M.A.K Booking is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="M.A.K Booking" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="AppMenuDir" Name="M.A.K Booking">
+          <Component Id="StartMenuShortcut" Guid="3B1E5C2A-7D44-4E8E-9A53-6F2C1D0A9B11">
+            <Shortcut Id="AppShortcut" Name="M.A.K Booking" Target="[INSTALLFOLDER]mak_booking.exe" WorkingDirectory="INSTALLFOLDER" />
+            <RemoveFolder Id="RemoveAppMenuDir" On="uninstall" />
+            <RegistryValue Root="HKCU" Key="Software\M.A.K\Booking" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="Main" Title="M.A.K Booking" Level="1">
+      <ComponentGroupRef Id="AppFiles" />
+      <ComponentRef Id="StartMenuShortcut" />
+    </Feature>
+  </Product>
+</Wix>

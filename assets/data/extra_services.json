@@ -1,0 +1,180 @@
+{
+ "_note": "tier=null يعني: سعر غير معتمد بعد (تسعير يدوي). ضع small/medium/large/premium لتفعيل السعر.",
+ "items": [
+  {
+   "key": "landing",
+   "ar": "صفحة هبوط (Landing Page)",
+   "en": "Landing page",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "brochure_site",
+   "ar": "موقع تعريفي متعدد الصفحات",
+   "en": "Brochure website",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "portfolio_site",
+   "ar": "موقع معرض أعمال",
+   "en": "Portfolio website",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "online_store",
+   "ar": "متجر إلكتروني",
+   "en": "Online store",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "web_app",
+   "ar": "تطبيق ويب",
+   "en": "Web application",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "admin_dashboard",
+   "ar": "لوحة تحكم / نظام إدارة",
+   "en": "Admin dashboard / management system",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "booking_system",
+   "ar": "نظام حجز",
+   "en": "Booking system",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "mobile_app",
+   "ar": "تطبيق موبايل",
+   "en": "Mobile app",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "api_backend",
+   "ar": "واجهة برمجية وقاعدة بيانات",
+   "en": "API & database",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "site_redesign",
+   "ar": "إعادة تصميم موقع قائم",
+   "en": "Website redesign",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "site_maintenance",
+   "ar": "صيانة وتحديث موقع",
+   "en": "Site maintenance",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "seo_basic",
+   "ar": "تحسين محركات البحث (SEO) أساسي",
+   "en": "Basic SEO",
+   "group": "web",
+   "tier": null
+  },
+  {
+   "key": "ad_copy",
+   "ar": "نص إعلاني",
+   "en": "Ad copy",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "article",
+   "ar": "مقال",
+   "en": "Article",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "blog_post",
+   "ar": "تدوينة",
+   "en": "Blog post",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "product_desc",
+   "ar": "وصف منتجات",
+   "en": "Product descriptions",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "social_posts",
+   "ar": "منشورات تواصل اجتماعي",
+   "en": "Social media posts",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "website_copy",
+   "ar": "محتوى موقع",
+   "en": "Website copy",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "translation_ar_en",
+   "ar": "ترجمة عربي ↔ إنجليزي",
+   "en": "Translation AR ↔ EN",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "translation_fr",
+   "ar": "ترجمة فرنسية",
+   "en": "French translation",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "proofreading",
+   "ar": "تدقيق لغوي",
+   "en": "Proofreading",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "script",
+   "ar": "سيناريو / نص فيديو",
+   "en": "Script / video text",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "cv_letter",
+   "ar": "سيرة ذاتية / خطاب",
+   "en": "CV / cover letter",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "press_release",
+   "ar": "بيان صحفي",
+   "en": "Press release",
+   "group": "writing",
+   "tier": null
+  },
+  {
+   "key": "story_editing",
+   "ar": "تحرير رواية / قصة",
+   "en": "Story / novel editing",
+   "group": "writing",
+   "tier": null
+  }
+ ]
+}

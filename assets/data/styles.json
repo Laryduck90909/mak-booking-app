@@ -1,0 +1,99 @@
+{
+ "items": [
+  {
+   "key": "minimalist",
+   "ar": "مينيماليست",
+   "en": "Minimalist"
+  },
+  {
+   "key": "modern",
+   "ar": "عصري",
+   "en": "Modern"
+  },
+  {
+   "key": "retro",
+   "ar": "كلاسيكي قديم",
+   "en": "Retro / Vintage"
+  },
+  {
+   "key": "luxury",
+   "ar": "فاخر",
+   "en": "Luxury"
+  },
+  {
+   "key": "flat",
+   "ar": "مسطّح",
+   "en": "Flat"
+  },
+  {
+   "key": "three_d",
+   "ar": "ثلاثي الأبعاد",
+   "en": "3D"
+  },
+  {
+   "key": "hand_drawn",
+   "ar": "مرسوم يدوياً",
+   "en": "Hand-drawn"
+  },
+  {
+   "key": "geometric",
+   "ar": "هندسي",
+   "en": "Geometric"
+  },
+  {
+   "key": "grunge",
+   "ar": "غرنج",
+   "en": "Grunge"
+  },
+  {
+   "key": "graphity",
+   "ar": "غرافيتي",
+   "en": "Graphity"
+  },
+  {
+   "key": "neon",
+   "ar": "نيون",
+   "en": "Neon"
+  },
+  {
+   "key": "pastel",
+   "ar": "باستيل",
+   "en": "Pastel"
+  },
+  {
+   "key": "corporate",
+   "ar": "رسمي مؤسسي",
+   "en": "Corporate"
+  },
+  {
+   "key": "playful",
+   "ar": "مرح",
+   "en": "Playful"
+  },
+  {
+   "key": "abstract",
+   "ar": "تجريدي",
+   "en": "Abstract"
+  },
+  {
+   "key": "typographic",
+   "ar": "طباعي",
+   "en": "Typographic"
+  },
+  {
+   "key": "isometric",
+   "ar": "إيزومتري",
+   "en": "Isometric"
+  },
+  {
+   "key": "watercolor",
+   "ar": "ألوان مائية",
+   "en": "Watercolor"
+  },
+  {
+   "key": "calligraphy",
+   "ar": "خط عربي",
+   "en": "Arabic Calligraphy"
+  }
+ ]
+}

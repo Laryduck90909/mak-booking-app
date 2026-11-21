@@ -1,0 +1,345 @@
+{
+ "_note": "ضع الصورة في assets/mockups/<key>.png — الاسم يطابق key بالضبط.",
+ "items": [
+  {
+   "key": "iphone",
+   "ar": "آيفون",
+   "en": "Iphone"
+  },
+  {
+   "key": "android_phone",
+   "ar": "هاتف أندرويد",
+   "en": "Android Phone"
+  },
+  {
+   "key": "tablet",
+   "ar": "جهاز لوحي",
+   "en": "Tablet"
+  },
+  {
+   "key": "laptop",
+   "ar": "لابتوب",
+   "en": "Laptop"
+  },
+  {
+   "key": "desktop_monitor",
+   "ar": "شاشة مكتبية",
+   "en": "Desktop Monitor"
+  },
+  {
+   "key": "website_browser",
+   "ar": "متصفح ويب",
+   "en": "Website Browser"
+  },
+  {
+   "key": "app_screens",
+   "ar": "شاشات تطبيق",
+   "en": "App Screens"
+  },
+  {
+   "key": "tshirt",
+   "ar": "تيشيرت",
+   "en": "Tshirt"
+  },
+  {
+   "key": "hoodie",
+   "ar": "هودي",
+   "en": "Hoodie"
+  },
+  {
+   "key": "cap",
+   "ar": "قبعة",
+   "en": "Cap"
+  },
+  {
+   "key": "tote_bag",
+   "ar": "حقيبة قماش",
+   "en": "Tote Bag"
+  },
+  {
+   "key": "paper_bag",
+   "ar": "كيس ورقي",
+   "en": "Paper Bag"
+  },
+  {
+   "key": "shopping_bag",
+   "ar": "كيس تسوق",
+   "en": "Shopping Bag"
+  },
+  {
+   "key": "mug",
+   "ar": "كوب",
+   "en": "Mug"
+  },
+  {
+   "key": "bottle",
+   "ar": "زجاجة",
+   "en": "Bottle"
+  },
+  {
+   "key": "water_bottle",
+   "ar": "قارورة ماء",
+   "en": "Water Bottle"
+  },
+  {
+   "key": "can",
+   "ar": "علبة مشروب",
+   "en": "Can"
+  },
+  {
+   "key": "coffee_cup",
+   "ar": "كوب قهوة",
+   "en": "Coffee Cup"
+  },
+  {
+   "key": "takeaway_box",
+   "ar": "علبة طعام",
+   "en": "Takeaway Box"
+  },
+  {
+   "key": "pizza_box",
+   "ar": "علبة بيتزا",
+   "en": "Pizza Box"
+  },
+  {
+   "key": "product_box",
+   "ar": "علبة منتج",
+   "en": "Product Box"
+  },
+  {
+   "key": "perfume_bottle",
+   "ar": "زجاجة عطر",
+   "en": "Perfume Bottle"
+  },
+  {
+   "key": "cosmetic_jar",
+   "ar": "برطمان تجميل",
+   "en": "Cosmetic Jar"
+  },
+  {
+   "key": "tube",
+   "ar": "أنبوب",
+   "en": "Tube"
+  },
+  {
+   "key": "pouch",
+   "ar": "كيس",
+   "en": "Pouch"
+  },
+  {
+   "key": "sachet",
+   "ar": "ساشيه",
+   "en": "Sachet"
+  },
+  {
+   "key": "chips_bag",
+   "ar": "كيس رقائق",
+   "en": "Chips Bag"
+  },
+  {
+   "key": "chocolate_bar",
+   "ar": "لوح شوكولاتة",
+   "en": "Chocolate Bar"
+  },
+  {
+   "key": "candle",
+   "ar": "شمعة",
+   "en": "Candle"
+  },
+  {
+   "key": "business_card",
+   "ar": "بطاقة عمل",
+   "en": "Business Card"
+  },
+  {
+   "key": "letterhead",
+   "ar": "ورقة رسمية",
+   "en": "Letterhead"
+  },
+  {
+   "key": "envelope",
+   "ar": "ظرف",
+   "en": "Envelope"
+  },
+  {
+   "key": "folder",
+   "ar": "ملف",
+   "en": "Folder"
+  },
+  {
+   "key": "notebook",
+   "ar": "دفتر",
+   "en": "Notebook"
+  },
+  {
+   "key": "id_card",
+   "ar": "بطاقة هوية",
+   "en": "Id Card"
+  },
+  {
+   "key": "badge_lanyard",
+   "ar": "بطاقة تعريف بحبل",
+   "en": "Badge Lanyard"
+  },
+  {
+   "key": "flyer",
+   "ar": "فلاير",
+   "en": "Flyer"
+  },
+  {
+   "key": "brochure",
+   "ar": "بروشور",
+   "en": "Brochure"
+  },
+  {
+   "key": "poster_wall",
+   "ar": "بوستر على جدار",
+   "en": "Poster Wall"
+  },
+  {
+   "key": "poster_frame",
+   "ar": "بوستر بإطار",
+   "en": "Poster Frame"
+  },
+  {
+   "key": "billboard",
+   "ar": "لوحة إعلانية",
+   "en": "Billboard"
+  },
+  {
+   "key": "bus_stop",
+   "ar": "محطة حافلات",
+   "en": "Bus Stop"
+  },
+  {
+   "key": "rollup",
+   "ar": "رول أب",
+   "en": "Rollup"
+  },
+  {
+   "key": "banner",
+   "ar": "بانر",
+   "en": "Banner"
+  },
+  {
+   "key": "flag",
+   "ar": "علم",
+   "en": "Flag"
+  },
+  {
+   "key": "storefront",
+   "ar": "واجهة محل",
+   "en": "Storefront"
+  },
+  {
+   "key": "signboard",
+   "ar": "لافتة",
+   "en": "Signboard"
+  },
+  {
+   "key": "car_wrap",
+   "ar": "سيارة",
+   "en": "Car Wrap"
+  },
+  {
+   "key": "van",
+   "ar": "شاحنة صغيرة",
+   "en": "Van"
+  },
+  {
+   "key": "truck",
+   "ar": "شاحنة",
+   "en": "Truck"
+  },
+  {
+   "key": "book_cover",
+   "ar": "غلاف كتاب",
+   "en": "Book Cover"
+  },
+  {
+   "key": "magazine",
+   "ar": "مجلة",
+   "en": "Magazine"
+  },
+  {
+   "key": "newspaper",
+   "ar": "جريدة",
+   "en": "Newspaper"
+  },
+  {
+   "key": "menu",
+   "ar": "قائمة طعام",
+   "en": "Menu"
+  },
+  {
+   "key": "invitation",
+   "ar": "دعوة",
+   "en": "Invitation"
+  },
+  {
+   "key": "ticket",
+   "ar": "تذكرة",
+   "en": "Ticket"
+  },
+  {
+   "key": "calendar",
+   "ar": "تقويم",
+   "en": "Calendar"
+  },
+  {
+   "key": "sticker",
+   "ar": "ملصق",
+   "en": "Sticker"
+  },
+  {
+   "key": "label_tag",
+   "ar": "بطاقة تسمية",
+   "en": "Label Tag"
+  },
+  {
+   "key": "stamp",
+   "ar": "ختم",
+   "en": "Stamp"
+  },
+  {
+   "key": "keychain",
+   "ar": "ميدالية",
+   "en": "Keychain"
+  },
+  {
+   "key": "pen",
+   "ar": "قلم",
+   "en": "Pen"
+  },
+  {
+   "key": "tape",
+   "ar": "شريط لاصق",
+   "en": "Tape"
+  },
+  {
+   "key": "coaster",
+   "ar": "قاعدة كوب",
+   "en": "Coaster"
+  },
+  {
+   "key": "cd_disc",
+   "ar": "قرص CD",
+   "en": "Cd Disc"
+  },
+  {
+   "key": "packaging_set",
+   "ar": "طقم تغليف",
+   "en": "Packaging Set"
+  },
+  {
+   "key": "apron",
+   "ar": "مريلة",
+   "en": "Apron"
+  },
+  {
+   "key": "towel",
+   "ar": "منشفة",
+   "en": "Towel"
+  }
+ ]
+}

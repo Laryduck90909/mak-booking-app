@@ -1,0 +1,322 @@
+{
+ "_note": "أسئلة البريف (30). يمكن للمدير تعديلها من الإعدادات بعد ربط قاعدة البيانات.",
+ "en_options": {
+  "نعم — سأرفعها": "Yes — I will upload",
+  "لا — أحتاج واحدة": "No — I need one",
+  "تحديث الموجودة": "Update existing",
+  "تسويق": "Marketing",
+  "طباعة": "Print",
+  "هوية": "Identity",
+  "تغليف": "Packaging",
+  "مناسبة": "Event",
+  "نعم": "Yes",
+  "لا": "No",
+  "مفصّل": "Detailed",
+  "لا فرق": "No preference",
+  "لا أحتاج": "Not needed"
+ },
+ "items": [
+  {
+   "key": "q01",
+   "group": "brand",
+   "ar": "اسم العلامة / المشروع",
+   "en": "Brand / project name",
+   "type": "text",
+   "options": [],
+   "sort": 1
+  },
+  {
+   "key": "q02",
+   "group": "brand",
+   "ar": "مجال النشاط",
+   "en": "Industry",
+   "type": "text",
+   "options": [],
+   "sort": 2
+  },
+  {
+   "key": "q03",
+   "group": "brand",
+   "ar": "شخصية العلامة بجملة واحدة",
+   "en": "Brand personality in one sentence",
+   "type": "text",
+   "options": [],
+   "sort": 3
+  },
+  {
+   "key": "q04",
+   "group": "brand",
+   "ar": "هل لديك شعار / هوية قائمة؟",
+   "en": "Do you have an existing logo / identity?",
+   "type": "choice",
+   "options": [
+    "نعم — سأرفعها",
+    "لا — أحتاج واحدة",
+    "تحديث الموجودة"
+   ],
+   "sort": 4
+  },
+  {
+   "key": "q05",
+   "group": "brand",
+   "ar": "ألوان العلامة الحالية",
+   "en": "Current brand colors",
+   "type": "text",
+   "options": [],
+   "sort": 5
+  },
+  {
+   "key": "q06",
+   "group": "brand",
+   "ar": "الخط المفضّل",
+   "en": "Preferred font",
+   "type": "text",
+   "options": [],
+   "sort": 6
+  },
+  {
+   "key": "q07",
+   "group": "purpose",
+   "ar": "الغرض من التصميم",
+   "en": "Purpose",
+   "type": "choice",
+   "options": [
+    "تسويق",
+    "طباعة",
+    "هوية",
+    "تغليف",
+    "مناسبة"
+   ],
+   "sort": 7
+  },
+  {
+   "key": "q08",
+   "group": "purpose",
+   "ar": "أين سيُستخدم؟",
+   "en": "Where will it be used?",
+   "type": "text",
+   "options": [],
+   "sort": 8
+  },
+  {
+   "key": "q09",
+   "group": "purpose",
+   "ar": "عدد النسخ / المتغيرات المطلوبة",
+   "en": "Number of versions",
+   "type": "text",
+   "options": [],
+   "sort": 9
+  },
+  {
+   "key": "q10",
+   "group": "purpose",
+   "ar": "موعد التسليم النهائي المطلوب",
+   "en": "Final delivery date",
+   "type": "date",
+   "options": [],
+   "sort": 10
+  },
+  {
+   "key": "q11",
+   "group": "audience",
+   "ar": "العمر والجنس المستهدف",
+   "en": "Target age and gender",
+   "type": "text",
+   "options": [],
+   "sort": 11
+  },
+  {
+   "key": "q12",
+   "group": "audience",
+   "ar": "اهتمامات الجمهور وسلوكه",
+   "en": "Audience interests and behavior",
+   "type": "longtext",
+   "options": [],
+   "sort": 12
+  },
+  {
+   "key": "q13",
+   "group": "audience",
+   "ar": "المنطقة واللغة",
+   "en": "Region and language",
+   "type": "text",
+   "options": [],
+   "sort": 13
+  },
+  {
+   "key": "q14",
+   "group": "content",
+   "ar": "الرسالة الأساسية",
+   "en": "Core message",
+   "type": "longtext",
+   "options": [],
+   "sort": 14
+  },
+  {
+   "key": "q15",
+   "group": "content",
+   "ar": "النصوص الحرفية الواجب كتابتها",
+   "en": "Exact texts to include",
+   "type": "longtext",
+   "options": [],
+   "sort": 15
+  },
+  {
+   "key": "q16",
+   "group": "content",
+   "ar": "نبرة الكلام",
+   "en": "Tone of voice",
+   "type": "text",
+   "options": [],
+   "sort": 16
+  },
+  {
+   "key": "q17",
+   "group": "content",
+   "ar": "هل يلزم شعار لفظي (Tagline)؟",
+   "en": "Is a tagline needed?",
+   "type": "choice",
+   "options": [
+    "نعم",
+    "لا"
+   ],
+   "sort": 17
+  },
+  {
+   "key": "q18",
+   "group": "visual",
+   "ar": "مراجع معجب بها ولماذا",
+   "en": "References you like and why",
+   "type": "longtext",
+   "options": [],
+   "sort": 18
+  },
+  {
+   "key": "q19",
+   "group": "visual",
+   "ar": "ما يجب تجنبه",
+   "en": "What to avoid",
+   "type": "longtext",
+   "options": [],
+   "sort": 19
+  },
+  {
+   "key": "q20",
+   "group": "visual",
+   "ar": "ألوان محرّمة",
+   "en": "Forbidden colors",
+   "type": "text",
+   "options": [],
+   "sort": 20
+  },
+  {
+   "key": "q21",
+   "group": "visual",
+   "ar": "Minimalist أم مفصّل؟",
+   "en": "Minimalist or detailed?",
+   "type": "choice",
+   "options": [
+    "Minimalist",
+    "مفصّل",
+    "لا فرق"
+   ],
+   "sort": 21
+  },
+  {
+   "key": "q22",
+   "group": "visual",
+   "ar": "الأسلوب العام",
+   "en": "Overall style",
+   "type": "text",
+   "options": [],
+   "sort": 22
+  },
+  {
+   "key": "q23",
+   "group": "visual",
+   "ar": "عناصر بصرية مفضلة",
+   "en": "Preferred visual elements",
+   "type": "text",
+   "options": [],
+   "sort": 23
+  },
+  {
+   "key": "q24",
+   "group": "tech",
+   "ar": "الصيغ النهائية المطلوبة",
+   "en": "Final file formats",
+   "type": "multi",
+   "options": [
+    "PNG",
+    "JPG",
+    "PDF",
+    "SVG",
+    "PSD",
+    "AI"
+   ],
+   "sort": 24
+  },
+  {
+   "key": "q25",
+   "group": "tech",
+   "ar": "المقاسات المطلوبة",
+   "en": "Required sizes",
+   "type": "text",
+   "options": [],
+   "sort": 25
+  },
+  {
+   "key": "q26",
+   "group": "tech",
+   "ar": "هل المخرجات للطباعة (CMYK / 300dpi)؟",
+   "en": "Print output (CMYK / 300dpi)?",
+   "type": "choice",
+   "options": [
+    "نعم",
+    "لا"
+   ],
+   "sort": 26
+  },
+  {
+   "key": "q27",
+   "group": "tech",
+   "ar": "ملفات المصدر المطلوبة",
+   "en": "Source files needed",
+   "type": "multi",
+   "options": [
+    "PSD",
+    "AI",
+    "Figma",
+    "لا أحتاج"
+   ],
+   "sort": 27
+  },
+  {
+   "key": "q28",
+   "group": "tech",
+   "ar": "ملاحظات حول الصور والعناصر المرفوعة",
+   "en": "Notes about uploaded images/assets",
+   "type": "text",
+   "options": [],
+   "sort": 28
+  },
+  {
+   "key": "q29",
+   "group": "process",
+   "ar": "من يعتمد التصميم نهائياً وكم عدد المراجعين؟",
+   "en": "Final approver and number of reviewers",
+   "type": "text",
+   "options": [],
+   "sort": 29
+  },
+  {
+   "key": "q30",
+   "group": "process",
+   "ar": "معلومات إضافية (وهل يُسمح بعرض العمل ضمن أعمال M.A.K؟)",
+   "en": "Extra info (may M.A.K showcase the work?)",
+   "type": "longtext",
+   "options": [],
+   "sort": 30
+  }
+ ]
+}

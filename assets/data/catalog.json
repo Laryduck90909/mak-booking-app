@@ -1,0 +1,432 @@
+{
+ "_note": "أضف بنوداً جديدة هنا. tier: small|medium|large|premium أو null = يُسعَّر يدوياً بعرض سعر.",
+ "items": [
+  {
+   "key": "sticker",
+   "ar": "ملصق",
+   "en": "Sticker",
+   "group": "print",
+   "tier": "small"
+  },
+  {
+   "key": "label_tag",
+   "ar": "بطاقة تسمية",
+   "en": "Label Tag",
+   "group": "print",
+   "tier": "small"
+  },
+  {
+   "key": "icons",
+   "ar": "أيقونات",
+   "en": "Icons",
+   "group": "digital",
+   "tier": "small"
+  },
+  {
+   "key": "patterns",
+   "ar": "أنماط",
+   "en": "Patterns",
+   "group": "digital",
+   "tier": "small"
+  },
+  {
+   "key": "text_effect",
+   "ar": "تأثير نص",
+   "en": "Text Effect",
+   "group": "digital",
+   "tier": "small"
+  },
+  {
+   "key": "textures",
+   "ar": "خامات",
+   "en": "Textures",
+   "group": "digital",
+   "tier": "small"
+  },
+  {
+   "key": "badge",
+   "ar": "شارة",
+   "en": "Badge",
+   "group": "branding",
+   "tier": "small"
+  },
+  {
+   "key": "coaster",
+   "ar": "قاعدة كوب",
+   "en": "Coaster",
+   "group": "merch",
+   "tier": "small"
+  },
+  {
+   "key": "keychain",
+   "ar": "ميدالية مفاتيح",
+   "en": "Keychain",
+   "group": "merch",
+   "tier": "small"
+  },
+  {
+   "key": "stamp",
+   "ar": "ختم",
+   "en": "Stamp",
+   "group": "stationery",
+   "tier": "small"
+  },
+  {
+   "key": "tape",
+   "ar": "شريط لاصق",
+   "en": "Tape",
+   "group": "merch",
+   "tier": "small"
+  },
+  {
+   "key": "pen",
+   "ar": "قلم",
+   "en": "Pen",
+   "group": "merch",
+   "tier": "small"
+  },
+  {
+   "key": "paper",
+   "ar": "ورق",
+   "en": "Paper",
+   "group": "stationery",
+   "tier": "small"
+  },
+  {
+   "key": "instagram_post",
+   "ar": "منشور إنستغرام",
+   "en": "Instagram Post",
+   "group": "digital",
+   "tier": "small"
+  },
+  {
+   "key": "procreate",
+   "ar": "عمل Procreate",
+   "en": "Procreate",
+   "group": "digital",
+   "tier": "small"
+  },
+  {
+   "key": "t_shirt",
+   "ar": "تيشيرت",
+   "en": "T-Shirt",
+   "group": "apparel",
+   "tier": "medium"
+  },
+  {
+   "key": "business_card",
+   "ar": "بطاقة عمل",
+   "en": "Business Card",
+   "group": "stationery",
+   "tier": "medium"
+  },
+  {
+   "key": "envelope",
+   "ar": "ظرف",
+   "en": "Envelope",
+   "group": "stationery",
+   "tier": "medium"
+  },
+  {
+   "key": "door_hanger",
+   "ar": "معلّقة باب",
+   "en": "Door Hanger",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "flyer",
+   "ar": "فلاير",
+   "en": "Flyer",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "notebook",
+   "ar": "دفتر",
+   "en": "Notebook",
+   "group": "stationery",
+   "tier": "medium"
+  },
+  {
+   "key": "ticket",
+   "ar": "تذكرة",
+   "en": "Ticket",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "menu",
+   "ar": "قائمة طعام",
+   "en": "Menu",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "invitation",
+   "ar": "دعوة",
+   "en": "Invitation",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "banner",
+   "ar": "بانر",
+   "en": "Banner",
+   "group": "outdoor",
+   "tier": "medium"
+  },
+  {
+   "key": "calendar",
+   "ar": "تقويم",
+   "en": "Calendar",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "flag",
+   "ar": "علم",
+   "en": "Flag",
+   "group": "outdoor",
+   "tier": "medium"
+  },
+  {
+   "key": "roll_up",
+   "ar": "رول أب",
+   "en": "Roll-Up",
+   "group": "outdoor",
+   "tier": "medium"
+  },
+  {
+   "key": "poster",
+   "ar": "بوستر",
+   "en": "Poster",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "stand",
+   "ar": "ستاند",
+   "en": "Stand",
+   "group": "outdoor",
+   "tier": "medium"
+  },
+  {
+   "key": "bag",
+   "ar": "حقيبة",
+   "en": "Bag",
+   "group": "packaging",
+   "tier": "medium"
+  },
+  {
+   "key": "box",
+   "ar": "علبة",
+   "en": "Box",
+   "group": "packaging",
+   "tier": "medium"
+  },
+  {
+   "key": "bottle",
+   "ar": "زجاجة",
+   "en": "Bottle",
+   "group": "packaging",
+   "tier": "medium"
+  },
+  {
+   "key": "candle",
+   "ar": "شمعة",
+   "en": "Candle",
+   "group": "packaging",
+   "tier": "medium"
+  },
+  {
+   "key": "can",
+   "ar": "علبة معدنية",
+   "en": "Can",
+   "group": "packaging",
+   "tier": "medium"
+  },
+  {
+   "key": "chocolate",
+   "ar": "شوكولاتة",
+   "en": "Chocolate",
+   "group": "packaging",
+   "tier": "medium"
+  },
+  {
+   "key": "chips",
+   "ar": "كيس رقائق",
+   "en": "Chips",
+   "group": "packaging",
+   "tier": "medium"
+  },
+  {
+   "key": "pouch",
+   "ar": "كيس",
+   "en": "Pouch",
+   "group": "packaging",
+   "tier": "medium"
+  },
+  {
+   "key": "sachet",
+   "ar": "ساشيه",
+   "en": "Sachet",
+   "group": "packaging",
+   "tier": "medium"
+  },
+  {
+   "key": "apron",
+   "ar": "مريلة",
+   "en": "Apron",
+   "group": "apparel",
+   "tier": "medium"
+  },
+  {
+   "key": "hoodie",
+   "ar": "هودي",
+   "en": "Hoodie",
+   "group": "apparel",
+   "tier": "medium"
+  },
+  {
+   "key": "newspaper",
+   "ar": "جريدة",
+   "en": "Newspaper",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "folder",
+   "ar": "ملف",
+   "en": "Folder",
+   "group": "stationery",
+   "tier": "medium"
+  },
+  {
+   "key": "id_card",
+   "ar": "بطاقة هوية",
+   "en": "ID Card",
+   "group": "stationery",
+   "tier": "medium"
+  },
+  {
+   "key": "towel",
+   "ar": "منشفة",
+   "en": "Towel",
+   "group": "apparel",
+   "tier": "medium"
+  },
+  {
+   "key": "frame",
+   "ar": "إطار",
+   "en": "Frame",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "canvas",
+   "ar": "لوحة كانفاس",
+   "en": "Canvas",
+   "group": "print",
+   "tier": "medium"
+  },
+  {
+   "key": "brochure",
+   "ar": "بروشور",
+   "en": "Brochure",
+   "group": "print",
+   "tier": "large"
+  },
+  {
+   "key": "billboard",
+   "ar": "لوحة إعلانية",
+   "en": "Billboard",
+   "group": "outdoor",
+   "tier": "large"
+  },
+  {
+   "key": "bus_stop",
+   "ar": "محطة حافلات",
+   "en": "Bus Stop",
+   "group": "outdoor",
+   "tier": "large"
+  },
+  {
+   "key": "car",
+   "ar": "تغليف سيارة",
+   "en": "Car",
+   "group": "outdoor",
+   "tier": "large"
+  },
+  {
+   "key": "storefront",
+   "ar": "واجهة محل",
+   "en": "Storefront",
+   "group": "outdoor",
+   "tier": "large"
+  },
+  {
+   "key": "cosmetic",
+   "ar": "مستحضرات تجميل",
+   "en": "Cosmetic",
+   "group": "packaging",
+   "tier": "large"
+  },
+  {
+   "key": "perfume",
+   "ar": "عطر",
+   "en": "Perfume",
+   "group": "packaging",
+   "tier": "large"
+  },
+  {
+   "key": "cd_dvd",
+   "ar": "CD/DVD",
+   "en": "CD/DVD",
+   "group": "print",
+   "tier": "large"
+  },
+  {
+   "key": "logo",
+   "ar": "شعار",
+   "en": "Logo",
+   "group": "branding",
+   "tier": "premium"
+  },
+  {
+   "key": "book",
+   "ar": "كتاب",
+   "en": "Book",
+   "group": "print",
+   "tier": "premium"
+  },
+  {
+   "key": "magazine",
+   "ar": "مجلة",
+   "en": "Magazine",
+   "group": "print",
+   "tier": "premium"
+  },
+  {
+   "key": "website_app_screen",
+   "ar": "شاشات موقع وتطبيق",
+   "en": "Website & App Screen",
+   "group": "digital",
+   "tier": "premium"
+  },
+  {
+   "key": "packaging",
+   "ar": "تغليف منتج",
+   "en": "Packaging",
+   "group": "packaging",
+   "tier": "premium"
+  },
+  {
+   "key": "fonts",
+   "ar": "خطوط",
+   "en": "Fonts",
+   "group": "branding",
+   "tier": "premium"
+  }
+ ]
+}

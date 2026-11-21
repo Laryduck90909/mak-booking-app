@@ -1,0 +1,68 @@
+iphone.png   ← آيفون
+android_phone.png   ← هاتف أندرويد
+tablet.png   ← جهاز لوحي
+laptop.png   ← لابتوب
+desktop_monitor.png   ← شاشة مكتبية
+website_browser.png   ← متصفح ويب
+app_screens.png   ← شاشات تطبيق
+tshirt.png   ← تيشيرت
+hoodie.png   ← هودي
+cap.png   ← قبعة
+tote_bag.png   ← حقيبة قماش
+paper_bag.png   ← كيس ورقي
+shopping_bag.png   ← كيس تسوق
+mug.png   ← كوب
+bottle.png   ← زجاجة
+water_bottle.png   ← قارورة ماء
+can.png   ← علبة مشروب
+coffee_cup.png   ← كوب قهوة
+takeaway_box.png   ← علبة طعام
+pizza_box.png   ← علبة بيتزا
+product_box.png   ← علبة منتج
+perfume_bottle.png   ← زجاجة عطر
+cosmetic_jar.png   ← برطمان تجميل
+tube.png   ← أنبوب
+pouch.png   ← كيس
+sachet.png   ← ساشيه
+chips_bag.png   ← كيس رقائق
+chocolate_bar.png   ← لوح شوكولاتة
+candle.png   ← شمعة
+business_card.png   ← بطاقة عمل
+letterhead.png   ← ورقة رسمية
+envelope.png   ← ظرف
+folder.png   ← ملف
+notebook.png   ← دفتر
+id_card.png   ← بطاقة هوية
+badge_lanyard.png   ← بطاقة تعريف بحبل
+flyer.png   ← فلاير
+brochure.png   ← بروشور
+poster_wall.png   ← بوستر على جدار
+poster_frame.png   ← بوستر بإطار
+billboard.png   ← لوحة إعلانية
+bus_stop.png   ← محطة حافلات
+rollup.png   ← رول أب
+banner.png   ← بانر
+flag.png   ← علم
+storefront.png   ← واجهة محل
+signboard.png   ← لافتة
+car_wrap.png   ← سيارة
+van.png   ← شاحنة صغيرة
+truck.png   ← شاحنة
+book_cover.png   ← غلاف كتاب
+magazine.png   ← مجلة
+newspaper.png   ← جريدة
+menu.png   ← قائمة طعام
+invitation.png   ← دعوة
+ticket.png   ← تذكرة
+calendar.png   ← تقويم
+sticker.png   ← ملصق
+label_tag.png   ← بطاقة تسمية
+stamp.png   ← ختم
+keychain.png   ← ميدالية
+pen.png   ← قلم
+tape.png   ← شريط لاصق
+coaster.png   ← قاعدة كوب
+cd_disc.png   ← قرص CD
+packaging_set.png   ← طقم تغليف
+apron.png   ← مريلة
+towel.png   ← منشفة

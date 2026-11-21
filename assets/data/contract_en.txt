@@ -1,0 +1,53 @@
+Service Agreement No. {{CONTRACT_ID}}
+Linked to order {{ORDER_ID}} — dated {{DATE}}
+
+Between:
+First party ("M.A.K"): {{COMPANY_NAME}} — City: {{COMPANY_CITY}} — Email: {{COMPANY_EMAIL}}.
+Second party (the "Client"): {{CLIENT_NAME}} — Email: {{CLIENT_EMAIL}}.
+
+Article 1 — Definitions and Parties
+"Order": the service request recorded in the app under number {{ORDER_ID}}, including the brief and approved options. "Preview": a watermarked working copy not suitable for commercial use. "Final Version": the watermark-free files delivered after full payment. "Addendum": a written document signed by both parties that amends this Agreement. "Execution Start": the moment both parties have signed this Agreement and the start-of-execution notice is sent to the Client inside the app.
+
+Article 2 — Scope of Work
+M.A.K shall perform only the service described in the Order and the approved options: {{SCOPE}}. {{SECTION_NOTE}} Any work outside this scope requires a signed Addendum stating the price and timeline. The service includes {{REVISIONS}} revision rounds; additional rounds are treated as paid modifications under Article 5.
+
+Article 3 — Originality and Intellectual Property
+M.A.K warrants that the delivered work is its own production or lawfully licensed to it, and that to its knowledge it does not infringe third-party rights. Third-party fonts, images and assets: licensing is M.A.K's responsibility if M.A.K supplied them, and the Client's if the Client supplied them. Usage rights in the Final Version pass to the Client only after full payment; until then all rights remain with M.A.K and only the watermarked Preview may be used. Usage is exclusive or non-exclusive as stated in the Order or Addendum, and M.A.K keeps its moral rights as author.
+
+Article 4 — Fees and Payment
+The total contract value is {{TOTAL}}. A deposit of {{DEPOSIT}} is payable upon signing; the balance is payable as agreed before delivery of the Final Version. Payment is made by bank transfer to the company account shown in the app and is complete once M.A.K confirms receipt. The Final Version is not released before full payment unless cash-on-delivery has been agreed in writing.
+
+Article 5 — Three-Day Window and Modifications
+The three (3) day window starts at Execution Start; during it the Client may request modifications or cancellation free of charge (subject to Article 6). After it ends, every modification carries a surcharge of at least {{MODIFY_FEE}}% of the contract value; M.A.K sets the final rate (5%–10%) according to the size of the change, approved by a signed Addendum before work begins.
+
+Article 6 — Cancellation
+Before Execution Start the deposit is refunded in full. After Execution Start and within the three-day window the Client may cancel without penalty, while M.A.K remains entitled to payment for work actually done if it exceeds what was paid. After the window the deposit is non-refundable and a cancellation fine of {{CANCEL_FINE}}% of the total value is due, payable before the cancellation is approved and deducted from the deposit first. No cancellation is approved without verifying the Client's identity with the order code.
+
+Article 7 — Delivery and Timelines
+Timelines start once the required materials and the agreed payment are received. Any Client delay in responding or providing materials extends the delivery date by the same period. Dates are estimates unless stated otherwise in writing. Delivery takes place inside the app and the notice shown in the Order is proof of delivery.
+
+Article 8 — Acceptance
+The work is deemed accepted if the Client submits no written, reasoned objection inside the app within 5 days of delivery, or upon first commercial use, whichever is earlier. Later objections are treated as modifications under Article 5.
+
+Article 9 — Limitation of Liability
+M.A.K's total liability shall in no case exceed the amount actually paid by the Client under this Agreement and excludes indirect damages, lost profits and data loss. M.A.K is not liable for use of the work outside the agreed scope or after modification by another party.
+
+Article 10 — Confidentiality and Data Protection
+Both parties shall keep exchanged information and files confidential and not disclose them to any third party. Client data is used only to perform the Order. M.A.K may not showcase the Client's work in its portfolio except with the Client's explicit permission in the brief (question 30) or later in writing. This obligation survives termination.
+
+Article 11 — No Assignment and Scope of Use
+Neither party may assign this Agreement or its rights to others without the other's written consent. After full payment the Client may use the work only within the agreed scope and may not resell or license it to others as a standalone product unless stated otherwise.
+
+Article 12 — Force Majeure
+Neither party breaches its obligations by delay or inability to perform caused by documented force majeure beyond its control (natural disasters, general telecom or power outages, government orders), and the deadline is extended by the duration of the event. If it exceeds 30 days either party may terminate and settle the work done.
+
+Article 13 — Electronic Signature and Evidence
+The parties acknowledge that electronic signature through the app is legally binding and that system records (dates, signatures, audit log) are admissible evidence. This Agreement is effective only when signed by both the Client and M.A.K's authorized representative (the Admin).
+
+Article 14 — Amendment
+This Agreement may be amended only by a written Addendum signed by both parties. Any amendment or promise by an employee not approved in writing by the Admin inside the app is void. Once signed, the text of this Agreement cannot be edited.
+
+Article 15 — Governing Law and Dispute Resolution
+This Agreement is governed by Moroccan law. The parties shall first seek an amicable settlement within 15 days of written notice of the dispute; failing that, the courts of {{COMPANY_CITY}} shall have jurisdiction.
+
+Executed electronically on {{DATE}} in Arabic and English; in case of conflict the Arabic text prevails.
