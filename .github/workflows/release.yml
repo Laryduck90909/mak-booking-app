@@ -1,1 +1,144 @@
+name: Build & Release
 
+# نسخة للمستودع الذي فيه المشروع داخل مجلد mak_booking.
+# يعمل عند دفع وسم إصدار (مثال: v2.0.0) أو يدوياً من تبويب Actions.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  # فارغة = الوضع التجريبي (Demo). ضع القيم في Settings > Secrets and variables > Actions
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://efibuqhuyxilvxpylhvr.supabase.co' }}
+  SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
+jobs:
+  # ------------------------------------------------------------------ Android APK
+  android:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mak_booking
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - name: Prepare platform folders
+        run: |
+          mkdir -p /tmp/bak && cp -r lib web assets pubspec.yaml analysis_options.yaml /tmp/bak/ 2>/dev/null || true
+          if [ ! -d android ]; then flutter create . --platforms=android --project-name mak_booking --org ma.mak; fi
+          cp -rf /tmp/bak/lib/. lib/ && cp -rf /tmp/bak/web/. web/ && cp -f /tmp/bak/pubspec.yaml pubspec.yaml && cp -f /tmp/bak/analysis_options.yaml analysis_options.yaml
+          rm -f test/widget_test.dart
+          # صلاحية الإنترنت مطلوبة في نسخة release
+          M=android/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.INTERNET' $M || sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' $M
+          sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' $M
+      - run: flutter pub get
+      - run: dart run flutter_launcher_icons
+      - name: Build APK
+        run: |
+          flutter build apk --release \
+            --dart-define=SUPABASE_URL="$SUPABASE_URL" \
+            --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
+          mkdir -p dist && cp build/app/outputs/flutter-apk/app-release.apk dist/MAK-Booking-android.apk
+      - uses: actions/upload-artifact@v4
+        with: { name: android-apk, path: mak_booking/dist/* }
+
+  # ------------------------------------------------------------------ Web (يعمل كـ PWA على iOS/macOS)
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mak_booking
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - name: Prepare platform folders
+        run: |
+          mkdir -p /tmp/bak && cp -r lib web assets pubspec.yaml analysis_options.yaml /tmp/bak/ 2>/dev/null || true
+          flutter create . --platforms=web --project-name mak_booking --org ma.mak
+          cp -rf /tmp/bak/lib/. lib/ && cp -rf /tmp/bak/web/. web/ && cp -f /tmp/bak/pubspec.yaml pubspec.yaml && cp -f /tmp/bak/analysis_options.yaml analysis_options.yaml
+          rm -f test/widget_test.dart
+      - run: flutter pub get
+      - run: dart run flutter_launcher_icons
+      - name: Build web
+        run: |
+          flutter build web --release \
+            --dart-define=SUPABASE_URL="$SUPABASE_URL" \
+            --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
+          mkdir -p dist && (cd build/web && zip -r ../../dist/MAK-Booking-web.zip .)
+      - uses: actions/upload-artifact@v4
+        with: { name: web, path: mak_booking/dist/* }
+
+  # ------------------------------------------------------------------ Windows: EXE (Inno Setup) + MSI (WiX 3)
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: mak_booking
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - name: Version
+        id: ver
+        run: |
+          V="${GITHUB_REF_NAME}"
+          if [[ "$GITHUB_REF" != refs/tags/v* ]]; then V="v2.0.0"; fi
+          V="${V#v}"
+          echo "app=$V" >> $GITHUB_OUTPUT
+          echo "msi=${V%%-*}.0" >> $GITHUB_OUTPUT
+      - name: Prepare platform folders
+        run: |
+          mkdir -p /tmp/bak && cp -r lib web assets pubspec.yaml analysis_options.yaml /tmp/bak/ 2>/dev/null || true
+          if [ ! -d windows ]; then flutter create . --platforms=windows --project-name mak_booking --org ma.mak; fi
+          cp -rf /tmp/bak/lib/. lib/ && cp -rf /tmp/bak/web/. web/ && cp -f /tmp/bak/pubspec.yaml pubspec.yaml && cp -f /tmp/bak/analysis_options.yaml analysis_options.yaml
+          rm -f test/widget_test.dart
+      - run: flutter pub get
+      - run: dart run flutter_launcher_icons
+      - name: Build Windows
+        run: |
+          flutter build windows --release \
+            --dart-define=SUPABASE_URL="$SUPABASE_URL" \
+            --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
+      - name: Portable ZIP
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath dist\MAK-Booking-windows-portable.zip
+      - name: Installer EXE (Inno Setup)
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/DAppVersion=${{ steps.ver.outputs.app }}" installer\mak_booking.iss
+      - name: Installer MSI (WiX 3)
+        shell: pwsh
+        run: |
+          choco install wixtoolset -y --no-progress
+          $wix = "C:\Program Files (x86)\WiX Toolset v3.14\bin"
+          $src = (Resolve-Path build\windows\x64\runner\Release).Path
+          & "$wix\heat.exe" dir $src -cg AppFiles -dr INSTALLFOLDER -srd -sreg -gg -var var.SourceDir -out installer\files.wxs
+          & "$wix\candle.exe" -nologo -dSourceDir="$src" -dProductVersion="${{ steps.ver.outputs.msi }}" -out installer\ installer\mak_booking.wxs installer\files.wxs
+          & "$wix\light.exe" -nologo -sval -ext WixUIExtension -out dist\MAK-Booking-windows.msi installer\mak_booking.wixobj installer\files.wixobj
+      - uses: actions/upload-artifact@v4
+        with: { name: windows, path: mak_booking/dist/* }
+
+  # ------------------------------------------------------------------ نشر الإصدار
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [android, web, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: out, merge-multiple: true }
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: out/*
+          generate_release_notes: true
