@@ -2,7 +2,8 @@ name: Build & Release
 
 on:
   push:
-    tags: ['v*']
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 permissions:
@@ -25,21 +26,12 @@ jobs:
         working-directory: .
         shell: bash
         run: |
-          PUB=$(find . -maxdepth 3 -name pubspec.yaml \
-            -not -path './.git/*' \
-            -not -path './app/*' |
-            awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
-
-          if [ -z "$PUB" ]; then
-            echo "pubspec.yaml not found"
-            exit 1
-          fi
-
-          PROJECT_DIR=$(dirname "$PUB")
-          echo "Project folder: $PROJECT_DIR"
+          PUB=$(find . -maxdepth 3 -name pubspec.yaml -not -path './.git/*' -not -path './app/*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+          test -n "$PUB" || { echo "pubspec.yaml not found"; exit 1; }
+          P=$(dirname "$PUB")
+          echo "Project folder: $P"
           mkdir -p app
-          (cd "$PROJECT_DIR" && tar cf - --exclude=./.git --exclude=./app .) |
-            (cd app && tar xf -)
+          (cd "$P" && tar cf - --exclude=./.git --exclude=./app .) | (cd app && tar xf -)
 
       - uses: actions/setup-java@v4
         with:
@@ -51,15 +43,16 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Create Android platform
-        run: flutter create --platforms=android --project-name mak_booking --org ma.mak .
-
-      - name: Verify Android manifest
+      - name: Prepare Android platform
         run: |
+          if [ ! -f android/app/src/main/AndroidManifest.xml ]; then
+            flutter create --platforms=android --project-name mak_booking --org ma.mak .
+          fi
           test -f android/app/src/main/AndroidManifest.xml
-          grep -q 'android.permission.INTERNET' android/app/src/main/AndroidManifest.xml ||
-            sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' android/app/src/main/AndroidManifest.xml
-          sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' android/app/src/main/AndroidManifest.xml
+          M=android/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.INTERNET' "$M" ||
+            sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' "$M"
+          sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' "$M"
 
       - run: flutter pub get
       - run: dart run flutter_launcher_icons
@@ -69,10 +62,8 @@ jobs:
           flutter build apk --release --info \
             --dart-define="SUPABASE_URL=$SUPABASE_URL" \
             --dart-define="SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY"
-
           mkdir -p dist
-          cp build/app/outputs/flutter-apk/app-release.apk \
-            dist/MAK-Booking-android.apk
+          cp build/app/outputs/flutter-apk/app-release.apk dist/MAK-Booking-android.apk
 
       - uses: actions/upload-artifact@v4
         with:
@@ -91,27 +82,18 @@ jobs:
         working-directory: .
         shell: bash
         run: |
-          PUB=$(find . -maxdepth 3 -name pubspec.yaml \
-            -not -path './.git/*' \
-            -not -path './app/*' |
-            awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
-
-          if [ -z "$PUB" ]; then
-            echo "pubspec.yaml not found"
-            exit 1
-          fi
-
-          PROJECT_DIR=$(dirname "$PUB")
+          PUB=$(find . -maxdepth 3 -name pubspec.yaml -not -path './.git/*' -not -path './app/*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+          test -n "$PUB" || { echo "pubspec.yaml not found"; exit 1; }
+          P=$(dirname "$PUB")
           mkdir -p app
-          (cd "$PROJECT_DIR" && tar cf - --exclude=./.git --exclude=./app .) |
-            (cd app && tar xf -)
+          (cd "$P" && tar cf - --exclude=./.git --exclude=./app .) | (cd app && tar xf -)
 
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
 
-      - name: Create web platform
+      - name: Prepare web platform
         run: flutter create --platforms=web --project-name mak_booking --org ma.mak .
 
       - run: flutter pub get
@@ -122,7 +104,6 @@ jobs:
           flutter build web --release \
             --dart-define="SUPABASE_URL=$SUPABASE_URL" \
             --dart-define="SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY"
-
           mkdir -p dist
           (cd build/web && zip -r ../../dist/MAK-Booking-web.zip .)
 
@@ -144,27 +125,18 @@ jobs:
         working-directory: .
         shell: bash
         run: |
-          PUB=$(find . -maxdepth 3 -name pubspec.yaml \
-            -not -path './.git/*' \
-            -not -path './app/*' |
-            awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
-
-          if [ -z "$PUB" ]; then
-            echo "pubspec.yaml not found"
-            exit 1
-          fi
-
-          PROJECT_DIR=$(dirname "$PUB")
+          PUB=$(find . -maxdepth 3 -name pubspec.yaml -not -path './.git/*' -not -path './app/*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+          test -n "$PUB" || { echo "pubspec.yaml not found"; exit 1; }
+          P=$(dirname "$PUB")
           mkdir -p app
-          (cd "$PROJECT_DIR" && tar cf - --exclude=./.git --exclude=./app .) |
-            (cd app && tar xf -)
+          (cd "$P" && tar cf - --exclude=./.git --exclude=./app .) | (cd app && tar xf -)
 
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
 
-      - name: Create Windows platform
+      - name: Prepare Windows platform
         run: flutter create --platforms=windows --project-name mak_booking --org ma.mak .
 
       - run: flutter pub get
@@ -180,9 +152,7 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force dist | Out-Null
-          Compress-Archive `
-            -Path build\windows\x64\runner\Release\* `
-            -DestinationPath dist\MAK-Booking-windows-portable.zip
+          Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath dist\MAK-Booking-windows-portable.zip
 
       - uses: actions/upload-artifact@v4
         with:
@@ -200,9 +170,6 @@ jobs:
           merge-multiple: true
 
       - uses: softprops/action-gh-release@v2
-        with:
-          files: out/*
-          generate_release_notes: true
         with:
           files: out/*
           generate_release_notes: true
