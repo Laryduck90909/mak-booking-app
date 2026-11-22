@@ -44,42 +44,28 @@ jobs:
           sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' "$M"
 
           # compileSdk للتطبيق الرئيسي
-          if [ -f android/app/build.gradle.kts ]; then
-            sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' android/app/build.gradle.kts
-          fi
-          if [ -f android/app/build.gradle ]; then
-            sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' android/app/build.gradle
-          fi
+          for F in android/app/build.gradle.kts android/app/build.gradle; do
+            if [ -f "$F" ]; then
+              sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 37/' "$F"
+            fi
+          done
 
-          # compileSdk لكل المكتبات الفرعية (بما فيها file_picker)
-          if [ -f android/build.gradle.kts ]; then
-            cat > /tmp/fix.kts <<'EOF'
-          subprojects {
-              plugins.withId("com.android.library") {
-                  extensions.configure<com.android.build.api.dsl.LibraryExtension> {
-                      compileSdk = 36
+          # Gradle init script: يُحمَّل تلقائياً ويفرض compileSdk على كل مشاريع Android (بما فيها file_picker)
+          mkdir -p "$HOME/.gradle"
+          cat > "$HOME/.gradle/init.gradle" <<'EOF'
+          allprojects {
+              afterEvaluate { p ->
+                  if (p.hasProperty('android')) {
+                      p.android.compileSdkVersion 37
                   }
               }
           }
           EOF
-            cat /tmp/fix.kts android/build.gradle.kts > /tmp/new.kts
-            mv /tmp/new.kts android/build.gradle.kts
-          elif [ -f android/build.gradle ]; then
-            cat > /tmp/fix.gradle <<'EOF'
-          subprojects {
-              plugins.withId('com.android.library') {
-                  project.extensions.getByName('android').compileSdkVersion 36
-              }
-          }
-          EOF
-            cat /tmp/fix.gradle android/build.gradle > /tmp/new.gradle
-            mv /tmp/new.gradle android/build.gradle
-          fi
 
-          echo "--- compileSdk ---"
-          grep -rn "compileSdk" android --include=*.kts --include=*.gradle || true
-          echo "--- root build file head ---"
-          head -n 15 android/build.gradle.kts 2>/dev/null || head -n 15 android/build.gradle
+          echo "--- init.gradle ---"
+          cat "$HOME/.gradle/init.gradle"
+          echo "--- compileSdk in app ---"
+          grep -rn "compileSdk" android/app --include=*.kts --include=*.gradle || true
 
       - run: flutter pub get
 
