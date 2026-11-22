@@ -46,15 +46,16 @@ jobs:
             sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' "$M"
           sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' "$M"
 
-          # Raise compileSdk to 36 (required by file_picker / flutter_plugin_android_lifecycle)
           for F in android/app/build.gradle.kts android/app/build.gradle; do
             if [ -f "$F" ]; then
               sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' "$F"
-              sed -i -E 's/compileSdkVersion flutter\.compileSdkVersion/compileSdkVersion 36/' "$F"
               echo "Patched compileSdk in $F"
               grep -n "compileSdk" "$F" || true
             fi
           done
+
+      - name: Upgrade file_picker
+        run: flutter pub upgrade file_picker
 
       - run: flutter pub get
       - run: dart run flutter_launcher_icons
@@ -90,7 +91,6 @@ jobs:
           fi
 
       - run: flutter pub get
-      - run: dart run flutter_launcher_icons
 
       - name: Build web
         run: |
@@ -124,7 +124,6 @@ jobs:
           fi
 
       - run: flutter pub get
-      - run: dart run flutter_launcher_icons
 
       - name: Build Windows
         run: |
