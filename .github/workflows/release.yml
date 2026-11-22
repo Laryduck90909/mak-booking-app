@@ -14,7 +14,7 @@ env:
   SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
 jobs:
-    android:
+  android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -44,11 +44,14 @@ jobs:
           sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' "$M"
 
           # compileSdk للتطبيق الرئيسي
-          for F in android/app/build.gradle.kts android/app/build.gradle; do
-            [ -f "$F" ] && sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' "$F"
-          done
+          if [ -f android/app/build.gradle.kts ]; then
+            sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' android/app/build.gradle.kts
+          fi
+          if [ -f android/app/build.gradle ]; then
+            sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' android/app/build.gradle
+          fi
 
-          # compileSdk لكل المكتبات الفرعية، يُضاف في أول الملف قبل قالب Flutter
+          # compileSdk لكل المكتبات الفرعية (بما فيها file_picker)
           if [ -f android/build.gradle.kts ]; then
             cat > /tmp/fix.kts <<'EOF'
           subprojects {
@@ -77,6 +80,7 @@ jobs:
           grep -rn "compileSdk" android --include=*.kts --include=*.gradle || true
           echo "--- root build file head ---"
           head -n 15 android/build.gradle.kts 2>/dev/null || head -n 15 android/build.gradle
+
       - run: flutter pub get
 
       - name: Build APK
