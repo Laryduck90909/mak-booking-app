@@ -1,6 +1,6 @@
 name: Build & Release
 
-# نسخة للمستودع الذي فيه المشروع داخل مجلد mak_booking.
+# يجد مجلد المشروع (pubspec.yaml) تلقائياً أينما كان في المستودع.
 # يعمل عند دفع وسم إصدار (مثال: v2.0.0) أو يدوياً من تبويب Actions.
 on:
   push:
@@ -21,9 +21,20 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: mak_booking
+        working-directory: app
     steps:
       - uses: actions/checkout@v4
+      - name: Locate project (يجد مكان المشروع تلقائياً)
+        shell: bash
+        working-directory: .
+        run: |
+          PUB=$(find . -maxdepth 3 -name pubspec.yaml -not -path './.git/*' -not -path './app/*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+          if [ -z "$PUB" ]; then echo "pubspec.yaml not found in repo"; find . -maxdepth 3 -not -path './.git/*' | head -50; exit 1; fi
+          P=$(dirname "$PUB")
+          echo "Project folder: $P"
+          mkdir -p app
+          (cd "$P" && tar cf - --exclude=./.git --exclude=./app .) | (cd app && tar xf -)
+          ls -a app
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '17' }
       - uses: subosito/flutter-action@v2
@@ -47,16 +58,27 @@ jobs:
             --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
           mkdir -p dist && cp build/app/outputs/flutter-apk/app-release.apk dist/MAK-Booking-android.apk
       - uses: actions/upload-artifact@v4
-        with: { name: android-apk, path: mak_booking/dist/* }
+        with: { name: android-apk, path: app/dist/* }
 
   # ------------------------------------------------------------------ Web (يعمل كـ PWA على iOS/macOS)
   web:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: mak_booking
+        working-directory: app
     steps:
       - uses: actions/checkout@v4
+      - name: Locate project (يجد مكان المشروع تلقائياً)
+        shell: bash
+        working-directory: .
+        run: |
+          PUB=$(find . -maxdepth 3 -name pubspec.yaml -not -path './.git/*' -not -path './app/*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+          if [ -z "$PUB" ]; then echo "pubspec.yaml not found in repo"; find . -maxdepth 3 -not -path './.git/*' | head -50; exit 1; fi
+          P=$(dirname "$PUB")
+          echo "Project folder: $P"
+          mkdir -p app
+          (cd "$P" && tar cf - --exclude=./.git --exclude=./app .) | (cd app && tar xf -)
+          ls -a app
       - uses: subosito/flutter-action@v2
         with: { channel: stable, cache: true }
       - name: Prepare platform folders
@@ -74,7 +96,7 @@ jobs:
             --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
           mkdir -p dist && (cd build/web && zip -r ../../dist/MAK-Booking-web.zip .)
       - uses: actions/upload-artifact@v4
-        with: { name: web, path: mak_booking/dist/* }
+        with: { name: web, path: app/dist/* }
 
   # ------------------------------------------------------------------ Windows: EXE (Inno Setup) + MSI (WiX 3)
   windows:
@@ -82,9 +104,20 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: mak_booking
+        working-directory: app
     steps:
       - uses: actions/checkout@v4
+      - name: Locate project (يجد مكان المشروع تلقائياً)
+        shell: bash
+        working-directory: .
+        run: |
+          PUB=$(find . -maxdepth 3 -name pubspec.yaml -not -path './.git/*' -not -path './app/*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+          if [ -z "$PUB" ]; then echo "pubspec.yaml not found in repo"; find . -maxdepth 3 -not -path './.git/*' | head -50; exit 1; fi
+          P=$(dirname "$PUB")
+          echo "Project folder: $P"
+          mkdir -p app
+          (cd "$P" && tar cf - --exclude=./.git --exclude=./app .) | (cd app && tar xf -)
+          ls -a app
       - uses: subosito/flutter-action@v2
         with: { channel: stable, cache: true }
       - name: Version
@@ -128,7 +161,7 @@ jobs:
           & "$wix\candle.exe" -nologo -dSourceDir="$src" -dProductVersion="${{ steps.ver.outputs.msi }}" -out installer\ installer\mak_booking.wxs installer\files.wxs
           & "$wix\light.exe" -nologo -sval -ext WixUIExtension -out dist\MAK-Booking-windows.msi installer\mak_booking.wixobj installer\files.wixobj
       - uses: actions/upload-artifact@v4
-        with: { name: windows, path: mak_booking/dist/* }
+        with: { name: windows, path: app/dist/* }
 
   # ------------------------------------------------------------------ نشر الإصدار
   release:
