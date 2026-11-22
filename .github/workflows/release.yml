@@ -29,7 +29,7 @@ jobs:
           channel: stable
           cache: true
 
-           - name: Prepare Android platform
+      - name: Prepare Android platform
         shell: bash
         run: |
           test -f pubspec.yaml || { echo "pubspec.yaml not found"; exit 1; }
