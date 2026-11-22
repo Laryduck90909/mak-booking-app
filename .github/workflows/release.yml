@@ -29,52 +29,54 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Prepare Android platform
+           - name: Prepare Android platform
         shell: bash
         run: |
-          test -f pubspec.yaml || { echo "pubspec.yaml not found in repo root"; exit 1; }
+          test -f pubspec.yaml || { echo "pubspec.yaml not found"; exit 1; }
 
           if [ ! -f android/app/src/main/AndroidManifest.xml ]; then
             flutter create --platforms=android --project-name mak_booking --org ma.mak .
           fi
 
           M=android/app/src/main/AndroidManifest.xml
-          test -f "$M"
           grep -q 'android.permission.INTERNET' "$M" ||
             sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' "$M"
           sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' "$M"
 
-          # compileSdk للتطبيق نفسه
+          # compileSdk للتطبيق الرئيسي
           for F in android/app/build.gradle.kts android/app/build.gradle; do
             [ -f "$F" ] && sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' "$F"
           done
 
-          # compileSdk لجميع المكتبات الفرعية (بما فيها file_picker)
+          # compileSdk لكل المكتبات الفرعية، يُضاف في أول الملف قبل قالب Flutter
           if [ -f android/build.gradle.kts ]; then
-            cat >> android/build.gradle.kts <<'EOF'
-
+            cat > /tmp/fix.kts <<'EOF'
           subprojects {
-              afterEvaluate {
-                  extensions.findByType(com.android.build.gradle.BaseExtension::class.java)?.compileSdkVersion(36)
-              }
-          }
-          EOF
-          elif [ -f android/build.gradle ]; then
-            cat >> android/build.gradle <<'EOF'
-
-          subprojects {
-              afterEvaluate { project ->
-                  if (project.hasProperty('android')) {
-                      project.android.compileSdkVersion 36
+              plugins.withId("com.android.library") {
+                  extensions.configure<com.android.build.api.dsl.LibraryExtension> {
+                      compileSdk = 36
                   }
               }
           }
           EOF
+            cat /tmp/fix.kts android/build.gradle.kts > /tmp/new.kts
+            mv /tmp/new.kts android/build.gradle.kts
+          elif [ -f android/build.gradle ]; then
+            cat > /tmp/fix.gradle <<'EOF'
+          subprojects {
+              plugins.withId('com.android.library') {
+                  project.extensions.getByName('android').compileSdkVersion 36
+              }
+          }
+          EOF
+            cat /tmp/fix.gradle android/build.gradle > /tmp/new.gradle
+            mv /tmp/new.gradle android/build.gradle
           fi
 
-          echo "--- compileSdk after patch ---"
+          echo "--- compileSdk ---"
           grep -rn "compileSdk" android --include=*.kts --include=*.gradle || true
-
+          echo "--- root build file head ---"
+          head -n 15 android/build.gradle.kts 2>/dev/null || head -n 15 android/build.gradle
       - run: flutter pub get
 
       - name: Build APK
