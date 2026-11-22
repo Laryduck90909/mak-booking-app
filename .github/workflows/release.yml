@@ -14,7 +14,7 @@ env:
   SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
 jobs:
-  android:
+    android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,30 +35,47 @@ jobs:
           test -f pubspec.yaml || { echo "pubspec.yaml not found in repo root"; exit 1; }
 
           if [ ! -f android/app/src/main/AndroidManifest.xml ]; then
-            echo "android folder missing, creating it..."
             flutter create --platforms=android --project-name mak_booking --org ma.mak .
           fi
 
           M=android/app/src/main/AndroidManifest.xml
           test -f "$M"
-
           grep -q 'android.permission.INTERNET' "$M" ||
             sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' "$M"
           sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' "$M"
 
+          # compileSdk للتطبيق نفسه
           for F in android/app/build.gradle.kts android/app/build.gradle; do
-            if [ -f "$F" ]; then
-              sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' "$F"
-              echo "Patched compileSdk in $F"
-              grep -n "compileSdk" "$F" || true
-            fi
+            [ -f "$F" ] && sed -i -E 's/compileSdk(Version)? *=? *flutter\.compileSdkVersion/compileSdk = 36/' "$F"
           done
 
-      - name: Upgrade file_picker
-        run: flutter pub upgrade file_picker
+          # compileSdk لجميع المكتبات الفرعية (بما فيها file_picker)
+          if [ -f android/build.gradle.kts ]; then
+            cat >> android/build.gradle.kts <<'EOF'
+
+          subprojects {
+              afterEvaluate {
+                  extensions.findByType(com.android.build.gradle.BaseExtension::class.java)?.compileSdkVersion(36)
+              }
+          }
+          EOF
+          elif [ -f android/build.gradle ]; then
+            cat >> android/build.gradle <<'EOF'
+
+          subprojects {
+              afterEvaluate { project ->
+                  if (project.hasProperty('android')) {
+                      project.android.compileSdkVersion 36
+                  }
+              }
+          }
+          EOF
+          fi
+
+          echo "--- compileSdk after patch ---"
+          grep -rn "compileSdk" android --include=*.kts --include=*.gradle || true
 
       - run: flutter pub get
-      - run: dart run flutter_launcher_icons
 
       - name: Build APK
         run: |
