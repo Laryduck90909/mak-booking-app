@@ -1,7 +1,5 @@
 name: Build & Release
 
-# يجد مجلد المشروع (pubspec.yaml) تلقائياً أينما كان في المستودع.
-# يعمل عند دفع وسم إصدار (مثال: v2.0.0) أو يدوياً من تبويب Actions.
 on:
   push:
     tags: ['v*']
@@ -11,12 +9,10 @@ permissions:
   contents: write
 
 env:
-  # فارغة = الوضع التجريبي (Demo). ضع القيم في Settings > Secrets and variables > Actions
   SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://efibuqhuyxilvxpylhvr.supabase.co' }}
   SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
 jobs:
-  # ------------------------------------------------------------------ Android APK
   android:
     runs-on: ubuntu-latest
     defaults:
@@ -24,45 +20,65 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v4
-      - name: Locate project (يجد مكان المشروع تلقائياً)
-        shell: bash
+
+      - name: Locate project
         working-directory: .
+        shell: bash
         run: |
-          PUB=$(find . -maxdepth 3 -name pubspec.yaml -not -path './.git/*' -not -path './app/*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
-          if [ -z "$PUB" ]; then echo "pubspec.yaml not found in repo"; find . -maxdepth 3 -not -path './.git/*' | head -50; exit 1; fi
-          P=$(dirname "$PUB")
-          echo "Project folder: $P"
+          PUB=$(find . -maxdepth 3 -name pubspec.yaml \
+            -not -path './.git/*' \
+            -not -path './app/*' |
+            awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+
+          if [ -z "$PUB" ]; then
+            echo "pubspec.yaml not found"
+            exit 1
+          fi
+
+          PROJECT_DIR=$(dirname "$PUB")
+          echo "Project folder: $PROJECT_DIR"
           mkdir -p app
-          (cd "$P" && tar cf - --exclude=./.git --exclude=./app .) | (cd app && tar xf -)
-          ls -a app
+          (cd "$PROJECT_DIR" && tar cf - --exclude=./.git --exclude=./app .) |
+            (cd app && tar xf -)
+
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: '17' }
+        with:
+          distribution: temurin
+          java-version: '17'
+
       - uses: subosito/flutter-action@v2
-        with: { channel: stable, cache: true }
-      - name: Prepare platform folders
+        with:
+          channel: stable
+          cache: true
+
+      - name: Create Android platform
+        run: flutter create --platforms=android --project-name mak_booking --org ma.mak .
+
+      - name: Verify Android manifest
         run: |
-          mkdir -p /tmp/bak && cp -r lib web assets pubspec.yaml analysis_options.yaml /tmp/bak/ 2>/dev/null || true
-          if [ ! -d android ]; then flutter create . --platforms=android --project-name mak_booking --org ma.mak; fi
-          cp -rf /tmp/bak/lib/. lib/ && cp -rf /tmp/bak/web/. web/ && cp -f /tmp/bak/pubspec.yaml pubspec.yaml && cp -f /tmp/bak/analysis_options.yaml analysis_options.yaml
-          rm -f test/widget_test.dart
-          # صلاحية الإنترنت مطلوبة في نسخة release
-          M=android/app/src/main/AndroidManifest.xml
-          grep -q 'android.permission.INTERNET' $M || sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' $M
-          sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' $M
-        - name: Create android platform
-        run: flutter create --platforms=android .
+          test -f android/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.INTERNET' android/app/src/main/AndroidManifest.xml ||
+            sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' android/app/src/main/AndroidManifest.xml
+          sed -i 's#android:label="[^"]*"#android:label="M.A.K Booking"#' android/app/src/main/AndroidManifest.xml
+
       - run: flutter pub get
       - run: dart run flutter_launcher_icons
-      - name: Build APK
-  run: |
-    flutter build apk --release --info \
-      --dart-define=SUPABASE_URL="$SUPABASE_URL" \
-      --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
-          mkdir -p dist && cp build/app/outputs/flutter-apk/app-release.apk dist/MAK-Booking-android.apk
-      - uses: actions/upload-artifact@v4
-        with: { name: android-apk, path: app/dist/* }
 
-  # ------------------------------------------------------------------ Web (يعمل كـ PWA على iOS/macOS)
+      - name: Build APK
+        run: |
+          flutter build apk --release --info \
+            --dart-define="SUPABASE_URL=$SUPABASE_URL" \
+            --dart-define="SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY"
+
+          mkdir -p dist
+          cp build/app/outputs/flutter-apk/app-release.apk \
+            dist/MAK-Booking-android.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: app/dist/*
+
   web:
     runs-on: ubuntu-latest
     defaults:
@@ -70,37 +86,51 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v4
-      - name: Locate project (يجد مكان المشروع تلقائياً)
-        shell: bash
+
+      - name: Locate project
         working-directory: .
+        shell: bash
         run: |
-          PUB=$(find . -maxdepth 3 -name pubspec.yaml -not -path './.git/*' -not -path './app/*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
-          if [ -z "$PUB" ]; then echo "pubspec.yaml not found in repo"; find . -maxdepth 3 -not -path './.git/*' | head -50; exit 1; fi
-          P=$(dirname "$PUB")
-          echo "Project folder: $P"
+          PUB=$(find . -maxdepth 3 -name pubspec.yaml \
+            -not -path './.git/*' \
+            -not -path './app/*' |
+            awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+
+          if [ -z "$PUB" ]; then
+            echo "pubspec.yaml not found"
+            exit 1
+          fi
+
+          PROJECT_DIR=$(dirname "$PUB")
           mkdir -p app
-          (cd "$P" && tar cf - --exclude=./.git --exclude=./app .) | (cd app && tar xf -)
-          ls -a app
+          (cd "$PROJECT_DIR" && tar cf - --exclude=./.git --exclude=./app .) |
+            (cd app && tar xf -)
+
       - uses: subosito/flutter-action@v2
-        with: { channel: stable, cache: true }
-      - name: Prepare platform folders
-        run: |
-          mkdir -p /tmp/bak && cp -r lib web assets pubspec.yaml analysis_options.yaml /tmp/bak/ 2>/dev/null || true
-          flutter create . --platforms=web --project-name mak_booking --org ma.mak
-          cp -rf /tmp/bak/lib/. lib/ && cp -rf /tmp/bak/web/. web/ && cp -f /tmp/bak/pubspec.yaml pubspec.yaml && cp -f /tmp/bak/analysis_options.yaml analysis_options.yaml
-          rm -f test/widget_test.dart
+        with:
+          channel: stable
+          cache: true
+
+      - name: Create web platform
+        run: flutter create --platforms=web --project-name mak_booking --org ma.mak .
+
       - run: flutter pub get
       - run: dart run flutter_launcher_icons
+
       - name: Build web
         run: |
           flutter build web --release \
-            --dart-define=SUPABASE_URL="$SUPABASE_URL" \
-            --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
-          mkdir -p dist && (cd build/web && zip -r ../../dist/MAK-Booking-web.zip .)
-      - uses: actions/upload-artifact@v4
-        with: { name: web, path: app/dist/* }
+            --dart-define="SUPABASE_URL=$SUPABASE_URL" \
+            --dart-define="SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY"
 
-  # ------------------------------------------------------------------ Windows: EXE (Inno Setup) + MSI (WiX 3)
+          mkdir -p dist
+          (cd build/web && zip -r ../../dist/MAK-Booking-web.zip .)
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web
+          path: app/dist/*
+
   windows:
     runs-on: windows-latest
     defaults:
@@ -109,71 +139,70 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v4
-      - name: Locate project (يجد مكان المشروع تلقائياً)
-        shell: bash
+
+      - name: Locate project
         working-directory: .
+        shell: bash
         run: |
-          PUB=$(find . -maxdepth 3 -name pubspec.yaml -not -path './.git/*' -not -path './app/*' | awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
-          if [ -z "$PUB" ]; then echo "pubspec.yaml not found in repo"; find . -maxdepth 3 -not -path './.git/*' | head -50; exit 1; fi
-          P=$(dirname "$PUB")
-          echo "Project folder: $P"
+          PUB=$(find . -maxdepth 3 -name pubspec.yaml \
+            -not -path './.git/*' \
+            -not -path './app/*' |
+            awk '{print length, $0}' | sort -n | head -1 | cut -d' ' -f2-)
+
+          if [ -z "$PUB" ]; then
+            echo "pubspec.yaml not found"
+            exit 1
+          fi
+
+          PROJECT_DIR=$(dirname "$PUB")
           mkdir -p app
-          (cd "$P" && tar cf - --exclude=./.git --exclude=./app .) | (cd app && tar xf -)
-          ls -a app
+          (cd "$PROJECT_DIR" && tar cf - --exclude=./.git --exclude=./app .) |
+            (cd app && tar xf -)
+
       - uses: subosito/flutter-action@v2
-        with: { channel: stable, cache: true }
-      - name: Version
-        id: ver
-        run: |
-          V="${GITHUB_REF_NAME}"
-          if [[ "$GITHUB_REF" != refs/tags/v* ]]; then V="v2.0.0"; fi
-          V="${V#v}"
-          echo "app=$V" >> $GITHUB_OUTPUT
-          echo "msi=${V%%-*}.0" >> $GITHUB_OUTPUT
-      - name: Prepare platform folders
-        run: |
-          mkdir -p /tmp/bak && cp -r lib web assets pubspec.yaml analysis_options.yaml /tmp/bak/ 2>/dev/null || true
-          if [ ! -d windows ]; then flutter create . --platforms=windows --project-name mak_booking --org ma.mak; fi
-          cp -rf /tmp/bak/lib/. lib/ && cp -rf /tmp/bak/web/. web/ && cp -f /tmp/bak/pubspec.yaml pubspec.yaml && cp -f /tmp/bak/analysis_options.yaml analysis_options.yaml
-          rm -f test/widget_test.dart
+        with:
+          channel: stable
+          cache: true
+
+      - name: Create Windows platform
+        run: flutter create --platforms=windows --project-name mak_booking --org ma.mak .
+
       - run: flutter pub get
       - run: dart run flutter_launcher_icons
+
       - name: Build Windows
         run: |
           flutter build windows --release \
-            --dart-define=SUPABASE_URL="$SUPABASE_URL" \
-            --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
-      - name: Portable ZIP
+            --dart-define="SUPABASE_URL=$SUPABASE_URL" \
+            --dart-define="SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY"
+
+      - name: Create portable ZIP
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force dist | Out-Null
-          Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath dist\MAK-Booking-windows-portable.zip
-      - name: Installer EXE (Inno Setup)
-        shell: pwsh
-        run: |
-          choco install innosetup -y --no-progress
-          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/DAppVersion=${{ steps.ver.outputs.app }}" installer\mak_booking.iss
-      - name: Installer MSI (WiX 3)
-        shell: pwsh
-        run: |
-          choco install wixtoolset -y --no-progress
-          $wix = "C:\Program Files (x86)\WiX Toolset v3.14\bin"
-          $src = (Resolve-Path build\windows\x64\runner\Release).Path
-          & "$wix\heat.exe" dir $src -cg AppFiles -dr INSTALLFOLDER -srd -sreg -gg -var var.SourceDir -out installer\files.wxs
-          & "$wix\candle.exe" -nologo -dSourceDir="$src" -dProductVersion="${{ steps.ver.outputs.msi }}" -out installer\ installer\mak_booking.wxs installer\files.wxs
-          & "$wix\light.exe" -nologo -sval -ext WixUIExtension -out dist\MAK-Booking-windows.msi installer\mak_booking.wixobj installer\files.wixobj
-      - uses: actions/upload-artifact@v4
-        with: { name: windows, path: app/dist/* }
+          Compress-Archive `
+            -Path build\windows\x64\runner\Release\* `
+            -DestinationPath dist\MAK-Booking-windows-portable.zip
 
-  # ------------------------------------------------------------------ نشر الإصدار
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: app/dist/*
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: [android, web, windows]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
-        with: { path: out, merge-multiple: true }
+        with:
+          path: out
+          merge-multiple: true
+
       - uses: softprops/action-gh-release@v2
+        with:
+          files: out/*
+          generate_release_notes: true
         with:
           files: out/*
           generate_release_notes: true
